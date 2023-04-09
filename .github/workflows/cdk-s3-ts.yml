@@ -3,7 +3,7 @@ name: CDK Deploy
 on:
   push:
     paths:
-      - 'cdk-s3-ts/**'
+      - "cdk-s3-ts/**"
 
 jobs:
   deploy:
@@ -13,17 +13,10 @@ jobs:
       options: --user=root --workdir=/github/workspace
 
     steps:
-      - name: Check AWS CDK
-        run: |
-          if ! which cdk > /dev/null; then
-            echo "AWS CDK is not installed"
-            exit 1
-          fi
-
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: 'cdk-s3-ts'
+          path: "cdk-s3-ts"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -31,6 +24,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
+
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk
 
       - name: Install dependencies
         run: yarn install
