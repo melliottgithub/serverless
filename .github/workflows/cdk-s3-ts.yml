@@ -3,7 +3,7 @@ name: CDK Deploy
 on:
   push:
     paths:
-      - 'cdk-s3-ts/**'
+      - "cdk-s3-ts/**"
 
 jobs:
   deploy:
@@ -15,10 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: '/cdk-s3-ts'
-          
-      - name: Print current working directory
-        run: pwd
+          path: "serverless/cdk-s3-ts"
 
       - name: Install AWS CLI and CDK
         run: |
@@ -34,17 +31,13 @@ jobs:
           aws-region: us-west-2
 
       - name: Install dependencies
-        working-directory: /cdk-s3-ts
         run: yarn install
 
       - name: Synthesize CDK stack
-        working-directory: /cdk-s3-ts
         run: cdk synth
 
       - name: Deploy CDK stack
-        working-directory: /cdk-s3-ts
         run: cdk deploy --require-approval never
 
       - name: Run tests
-        working-directory: /cdk-s3-ts
         run: npm test
