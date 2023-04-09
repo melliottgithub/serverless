@@ -14,8 +14,6 @@ export class CdkS3TsStack extends cdk.Stack {
       publicReadAccess: false,
     });
 
-    // The code that defines your stack goes here
-
     // example resource
     // const queue = new sqs.Queue(this, 'CdkS3TsQueue', {
     //   visibilityTimeout: cdk.Duration.seconds(300)
