@@ -23,6 +23,8 @@ jobs:
       - name: Print current directories
         run: |
           ls
+          cd serverless
+          ls
           cd cdk-s3-ts
           ls
 
