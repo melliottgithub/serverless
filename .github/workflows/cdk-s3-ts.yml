@@ -8,16 +8,22 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    container:
+      image: node:16
+      options: --user=root --workdir=/github/workspace
 
     steps:
+      - name: Check AWS CDK
+        run: |
+          if ! which cdk > /dev/null; then
+            echo "AWS CDK is not installed"
+            exit 1
+          fi
+
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Install AWS CLI and CDK
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y awscli
-          sudo npm install -g aws-cdk
+        with:
+          path: 'cdk-s3-ts'
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
