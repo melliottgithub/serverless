@@ -1,0 +1,35 @@
+name: CDK Deploy
+
+on:
+  push:
+    paths:
+      - "cdk-s3-ts/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    container:
+      image: amazon/aws-cli:2.2.50
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region us-west-2
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Synthesize CDK stack
+        run: cdk synth
+
+      - name: Deploy CDK stack
+        run: cdk deploy --require-approval never
+
+      - name: Run tests
+        run: yarn test
