@@ -17,6 +17,9 @@ jobs:
         with:
           path: "serverless/cdk-s3-ts"
 
+      - name: Print current working directory
+        run: pwd
+        
       - name: Install AWS CLI and CDK
         run: |
           sudo apt-get update
