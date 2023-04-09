@@ -20,6 +20,9 @@ jobs:
       - name: Print current working directory
         run: pwd
 
+      - name: Print current directories
+        run: ls
+
       - name: Install AWS CLI and CDK
         run: |
           apt-get update
@@ -37,7 +40,7 @@ jobs:
         run: yarn install
 
       - name: Synthesize CDK stack
-        run: cdk synth --app "npx ts-node --prefer-ts-exts bin/cdk-s3-ts.ts"
+        run: cdk synth 
 
       - name: Deploy CDK stack
         run: cdk deploy --require-approval never
