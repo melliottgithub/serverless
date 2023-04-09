@@ -13,8 +13,7 @@ export class CdkS3TsStack extends cdk.Stack {
       versioned: false,
       publicReadAccess: false,
     });
-
-    // example resource
+    
     // const queue = new sqs.Queue(this, 'CdkS3TsQueue', {
     //   visibilityTimeout: cdk.Duration.seconds(300)
     // });
