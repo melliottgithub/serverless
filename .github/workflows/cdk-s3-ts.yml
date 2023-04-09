@@ -37,7 +37,7 @@ jobs:
         run: yarn install
 
       - name: Synthesize CDK stack
-        run: cdk synth
+        run: cdk synth --app "npx ts-node --prefer-ts-exts bin/cdk-s3-ts.ts"
 
       - name: Deploy CDK stack
         run: cdk deploy --require-approval never
