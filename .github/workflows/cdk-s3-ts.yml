@@ -8,10 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    container:
-      image: amazon/aws-cli:2.2.50
-
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
