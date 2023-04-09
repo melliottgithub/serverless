@@ -3,20 +3,28 @@ name: CDK Deploy
 on:
   push:
     paths:
-      - "cdk-s3-ts/**"
+      - 'cdk-s3-ts/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     container:
       image: node:16
-      options: --user=root --workdir=/github/workspace
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: "cdk-s3-ts"
+          path: '/cdk-s3-ts'
+          
+      - name: Print current working directory
+        run: pwd
+
+      - name: Install AWS CLI and CDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+          sudo npm install -g aws-cdk
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -25,17 +33,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
-      - name: Install AWS CDK
-        run: npm install -g aws-cdk
-
       - name: Install dependencies
+        working-directory: /cdk-s3-ts
         run: yarn install
 
       - name: Synthesize CDK stack
+        working-directory: /cdk-s3-ts
         run: cdk synth
 
       - name: Deploy CDK stack
+        working-directory: /cdk-s3-ts
         run: cdk deploy --require-approval never
 
       - name: Run tests
+        working-directory: /cdk-s3-ts
         run: npm test
