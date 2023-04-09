@@ -19,12 +19,12 @@ jobs:
 
       - name: Print current working directory
         run: pwd
-        
+
       - name: Install AWS CLI and CDK
         run: |
-          sudo apt-get update
-          sudo apt-get install -y awscli
-          sudo npm install -g aws-cdk
+          apt-get update
+          apt-get install -y awscli
+          npm install -g aws-cdk
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
