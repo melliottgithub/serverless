@@ -12,7 +12,7 @@ jobs:
     container:
       image: node:16
 
-    working-directory: cdk-s3-ts
+    working-directory: serverless/cdk-s3-ts
 
     steps:
       - name: Checkout code
