@@ -17,9 +17,6 @@ jobs:
         with:
           path: "serverless/cdk-s3-ts"
 
-      - name: Change working directory
-        working-directory: serverless/cdk-s3-ts
-
       - name: Install AWS CLI and CDK
         run: |
           apt-get update
@@ -34,16 +31,21 @@ jobs:
           aws-region: us-west-2
 
       - name: Install dependencies
+        working-directory: serverless/cdk-s3-ts
         run: yarn install
-
-      - name: Build project
+        
+      - name: Build
+        working-directory: serverless/cdk-s3-ts
         run: yarn build
 
       - name: Synthesize CDK stack
-        run: cdk synth
+        working-directory: serverless/cdk-s3-ts
+        run: cdk synth --app "npx ts-node --prefer-ts-exts bin/cdk-s3-ts.ts"
 
       - name: Deploy CDK stack
+        working-directory: serverless/cdk-s3-ts
         run: cdk deploy --require-approval never
 
       - name: Run tests
+        working-directory: serverless
         run: npm test
