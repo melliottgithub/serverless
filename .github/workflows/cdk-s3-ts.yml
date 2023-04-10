@@ -30,7 +30,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
-       - name: Install dependencies
+      - name: Install dependencies
         working-directory: serverless/cdk-s3-ts
         run: yarn install
 
