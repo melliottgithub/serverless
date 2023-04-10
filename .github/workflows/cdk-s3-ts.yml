@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - "cdk-s3-ts/**"
-  workflow_dispatch
+  workflow_dispatch:
 
 jobs:
   deploy:
