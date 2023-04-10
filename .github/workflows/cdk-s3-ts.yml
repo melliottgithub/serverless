@@ -26,7 +26,7 @@ jobs:
           cd serverless
           ls
           cd cdk-s3-ts
-          ls
+          ls -la
 
       - name: Install AWS CLI and CDK
         run: |
@@ -42,7 +42,9 @@ jobs:
           aws-region: us-west-2
 
       - name: Install dependencies
-        run: yarn install
+        run: |
+          ls
+          yarn install
 
       - name: Synthesize CDK stack
         run: cdk synth
