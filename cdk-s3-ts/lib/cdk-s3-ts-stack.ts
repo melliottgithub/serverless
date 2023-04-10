@@ -14,7 +14,7 @@ export class CdkS3TsStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
-    // sqs queue
+    // sqs queue  // uncomment to test
     // const queue = new sqs.Queue(this, 'CdkS3TsQueue', {
     //   visibilityTimeout: cdk.Duration.seconds(300)
     // });
