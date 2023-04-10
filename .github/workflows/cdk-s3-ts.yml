@@ -34,21 +34,16 @@ jobs:
           aws-region: us-west-2
 
       - name: Install dependencies
-        run: |
-          yarn install
+        run: yarn install
 
       - name: Build project
-        run: |
-          yarn build
+        run: yarn build
 
       - name: Synthesize CDK stack
-        run: |
-          cdk synth
+        run: cdk synth
 
       - name: Deploy CDK stack
-        run: |
-          cdk deploy --require-approval never
+        run: cdk deploy --require-approval never
 
       - name: Run tests
-        run: |
-          npm test
+        run: npm test
