@@ -43,7 +43,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          ls
+          cd cdk-s3-ts
           yarn install
 
       - name: Synthesize CDK stack
