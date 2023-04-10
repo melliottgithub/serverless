@@ -36,7 +36,7 @@ jobs:
 
       - name: Synthesize CDK stack
         working-directory: serverless/cdk-s3-ts
-        run: cdk synth
+        run: cdk synth --app "npx ts-node --prefer-ts-exts bin/cdk-s3-ts.ts"
 
       - name: Deploy CDK stack
         working-directory: serverless/cdk-s3-ts
