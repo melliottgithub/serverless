@@ -47,7 +47,10 @@ jobs:
           yarn install
 
       - name: Synthesize CDK stack
-        run: cdk synth
+        run: |
+          ls
+          pwd
+          cdk synth
 
       - name: Deploy CDK stack
         run: cdk deploy --require-approval never
