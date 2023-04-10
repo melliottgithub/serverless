@@ -4,12 +4,15 @@ on:
   push:
     paths:
       - "cdk-s3-ts/**"
+  workflow_dispatch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     container:
       image: node:16
+
+    working-directory: cdk-s3-ts
 
     steps:
       - name: Checkout code
@@ -18,7 +21,6 @@ jobs:
       - name: Install AWS CLI and CDK
         run: |
           apt-get update
-          apt-get install -y awscli
           npm install -g aws-cdk
 
       - name: Configure AWS credentials
@@ -29,17 +31,13 @@ jobs:
           aws-region: us-west-2
 
       - name: Install dependencies
-        working-directory: cdk-s3-ts
         run: yarn install
         
       - name: Build
-        working-directory: cdk-s3-ts
         run: yarn build
 
       - name: Deploy CDK stack
-        working-directory: cdk-s3-ts
         run: cdk deploy --require-approval never
 
       - name: Run tests
-        working-directory: cdk-s3-ts
         run: npm test
