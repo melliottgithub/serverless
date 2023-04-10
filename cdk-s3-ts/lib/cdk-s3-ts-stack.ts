@@ -6,12 +6,12 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 export class CdkS3TsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-
     // s3 bucket
     const bucket = new s3.Bucket(this, "CdkS3Ts", {
       bucketName: "cdk-s3-ts-04092023",
       versioned: false,
       publicReadAccess: false,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
     // sqs queue - not used
