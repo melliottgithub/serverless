@@ -12,8 +12,6 @@ jobs:
     container:
       image: node:16
 
-    working-directory: serverless/cdk-s3-ts
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,12 +29,15 @@ jobs:
           aws-region: us-west-2
 
       - name: Install dependencies
+        working-directory: cdk-s3-ts
         run: yarn install
         
       - name: Build
+        working-directory: cdk-s3-ts
         run: yarn build
 
       - name: Deploy CDK stack
+        working-directory: cdk-s3-ts
         run: cdk deploy --require-approval never
 
       - name: Run tests
