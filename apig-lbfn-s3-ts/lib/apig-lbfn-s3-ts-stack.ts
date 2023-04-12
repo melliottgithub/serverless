@@ -1,8 +1,9 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as iam from "aws-cdk-lib/aws-iam";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as path from "path";
 
 export class ApigLbfnS3TsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -23,9 +24,12 @@ export class ApigLbfnS3TsStack extends cdk.Stack {
     iamdatabaserole.addManagedPolicy(
       iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonS3FullAccess")
     );
-    // example resource
-    // const queue = new sqs.Queue(this, 'ApigLbfnS3TsQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    // add lambda function to access s3 bucket
+    const dblambdafn = new lambda.Function(this, "lambdafnlogicalid", {
+      runtime: lambda.Runtime.PYTHON_3_9,
+      code: lambda.Code.fromAsset(path.join(__dirname, "../services")),
+      handler: "lambda_function.lambda_handler",
+      role: iamdatabaserole,
+    });
   }
 }
