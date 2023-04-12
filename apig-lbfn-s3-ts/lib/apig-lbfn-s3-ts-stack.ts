@@ -4,6 +4,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as path from "path";
+import * as apigateway from "aws-cdk-lib/aws-apigateway";
 
 export class ApigLbfnS3TsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -31,5 +32,22 @@ export class ApigLbfnS3TsStack extends cdk.Stack {
       handler: "lambda_function.lambda_handler",
       role: iamdatabaserole,
     });
+
+    //add api gateway to access lambda function as a lambdrest api
+    const dbapigatewayrestapi = new apigateway.LambdaRestApi(
+      this,
+      "apigatewayrestapi",
+      {
+        handler: dblambdafn,
+        restApiName: "db041123lbrestapi",
+        description: "this is a lambda rest api",
+        deploy: true,
+        proxy: false,
+      }
+    );
+    // get method from api gateway
+    const dbrestapi = dbapigatewayrestapi.root.addResource("db041123");
+    // add method to api gateway
+    dbrestapi.addMethod("GET");
   }
 }
