@@ -14,7 +14,7 @@ export class AwsCdkPipelineStack extends cdk.Stack {
     const pipeline = new CodePipeline(this, "Pipeline", {
       synth: new ShellStep("Synth", {
         input: CodePipelineSource.gitHub(
-          "",
+          "melliottgithub/serverless/aws-cdk-pipeline",
           "main"
         ),
         commands: ["npm ci", "npm run build", "npx cdk synth"],
