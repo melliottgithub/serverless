@@ -1,2 +1,1 @@
-boto
-botocore
+boto3

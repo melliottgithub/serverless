@@ -21,8 +21,8 @@ export class CdkRestApiStack extends cdk.Stack {
     const handlerFn = new Function(this, "getfactslogicalid", {
       functionName: "get-facts",
       runtime: Runtime.PYTHON_3_9,
-      code: Code.fromAsset(join(__dirname, "../lambda_package.zip")),
-      handler: "lambda_function.lambda_handler",
+      code: Code.fromAsset(join(__dirname, "../package.zip")),
+      handler: "app.lambda_handler",
       environment: {
         TABLE_NAME: factsTable.tableName,
       },
@@ -35,10 +35,14 @@ export class CdkRestApiStack extends cdk.Stack {
       restApiName: "get-facts-api",
     });
     // api gateway resource
-    const facts = api.root.addResource("get-facts");
+    const facts = api.root.addResource("getfacts");
     // api gateway integration
     const getFactsIntegration = new LambdaIntegration(handlerFn);
     // api gateway method
     facts.addMethod("GET", getFactsIntegration);
+    facts.addMethod("POST", getFactsIntegration);
+    facts.addMethod("PUT", getFactsIntegration);
+    facts.addMethod("DELETE", getFactsIntegration);
+    
   }
 }
