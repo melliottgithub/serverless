@@ -7,7 +7,5 @@ node_modules
 .cdk.staging
 cdk.out
 
-lambdas/*
-!lambdas/lambda_function.py
-!lambdas/requirements.txt
+lambdas/package
 lambda_package.zip
