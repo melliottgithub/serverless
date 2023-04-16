@@ -8,4 +8,4 @@ node_modules
 cdk.out
 
 lambdas/package
-lambda_package.zip
+package.zip
